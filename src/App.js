@@ -1,47 +1,79 @@
 import { useState } from "react";
-import Form from "react-bootstrap/Form"
-import "./App.css"
-function App (){
-  const [email, setEmail]=useState("")
-  const [name, setName]=useState("")
-  const [password, setPassword]=useState("")
-  const [url, setUrl]=useState("")
-  const [area, setArea]=useState("")
-  const [user, setUser] =useState({})
-  console.log(name);
-  console.log(email);
-  console.log(password);
-  console.log(url);
-  console.log(area);
-  const handleSubmit =()=>{
-
-  }
+import Form from "react-bootstrap/Form";
+import "./App.css";
+function App() {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [url, setUrl] = useState("");
+  const [area, setArea] = useState("");
+  const [user, setUser] = useState({});
+  const [valit, setValit] = useState(false);
+  // console.log(name);
+  // console.log(email);
+  // console.log(password);
+  // console.log(url);
+  // console.log(area);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setUser({
+      name,
+      email,
+      password,
+      url,
+      area,
+    });
+    setEmail("");
+    setName("");
+    setArea("");
+    setPassword("");
+    setUrl("");
+    setArea("");
+  };
+  console.log(user);
+  const formValit = () => {
+    console.log("mücahit");
+    if (
+      name.length > 3 &&
+      email.includes("@") &&
+      password.length > 8 &&
+      area.length > 10 &&
+      url.includes("https")
+    ) {
+      setValit(false);
+      console.log(valit);
+    } else {
+      setValit(true);
+    }
+  };
+  console.log(name.length);
+  console.log(area.length);
+  console.log(password.length);
+  console.log(email.includes("@"));
+  console.log(url.includes("https"));
+  const stop = () => {
+    setValit(false);
+  };
   return (
     <div className="mx-auto w-50">
-      <Form>
-        <Form.Group
-          className="m-3"
-          controlId="exampleForm.ControlInputEmail"
-        >
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="m-3" controlId="exampleForm.ControlInputEmail">
           <Form.Label>Email address:</Form.Label>
           <Form.Control
             className="border border-1 border-danger"
             type="email"
             placeholder="name@example.com"
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
         </Form.Group>
-        <Form.Group
-          className="m-3"
-          controlId="exampleForm.ControlInputName"
-        >
+        <Form.Group className="m-3" controlId="exampleForm.ControlInputName">
           <Form.Label>Name:</Form.Label>
           <Form.Control
             className="border border-1 border-danger"
             type="text"
             placeholder="Please enter your name"
-            onChange={(e)=>setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
             value={name}
           />
         </Form.Group>
@@ -54,44 +86,45 @@ function App (){
             className="border border-1 border-danger"
             type="password"
             placeholder="Please enter your password"
-            onChange={(e)=>setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
         </Form.Group>
-        <Form.Group
-          className="m-3"
-          controlId="exampleForm.ControlInputUrl"
-        >
+        <Form.Group className="m-3" controlId="exampleForm.ControlInputUrl">
           <Form.Label>URL:</Form.Label>
           <Form.Control
             className="border border-1 border-danger"
             type="url"
             placeholder="Please enter your image"
-            onChange={(e)=>setUrl(e.target.value)}
+            onChange={(e) => setUrl(e.target.value)}
             value={url}
           />
         </Form.Group>
-        <Form.Group
-          className="m-3"
-          controlId="exampleForm.ControlTextarea1"
-        >
+        <Form.Group className="m-3" controlId="exampleForm.ControlTextarea1">
           <Form.Label>Example textarea</Form.Label>
-          <Form.Control as="textarea" rows={3} onChange={(e)=>setArea(e.target.value)}  value={area}/>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            onChange={(e) => setArea(e.target.value)}
+            value={area}
+          />
         </Form.Group>
-        <div
-          className=""
-          role="button"
-        >
+        <div className="" role="button" onMouseLeave={stop}>
           <button
             type="submit"
-            // disabled={isValid}
-            className={`btn btn-primary mt-3`}
-            onSubmit={handleSubmit}
+            disabled={valit}
+            className={`btn btn-primary mt-3 ${valit ? "animate" : ""}`}
+            onMouseOver={formValit}
           >
             Submit
           </button>
         </div>
       </Form>
+      <div className="mt-5 w-50">
+        <img src={user.url} alt="" width={"200px"} />
+        <p>{user.name}</p>
+        <p> {user.area} </p>
+      </div>
     </div>
   );
 }
@@ -137,8 +170,8 @@ export default App;
 //       firstName.trim().length >= 3 &&
 //       lastName.trim().length >= 3 &&
 //       image.startsWith("http") &&
-      // isValidURL(image) &&
-      // imgRegex.test(image) &&
+// isValidURL(image) &&
+// imgRegex.test(image) &&
 //       password.length >= 8
 //     ) {
 //       setIsValid(false);
