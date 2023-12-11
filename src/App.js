@@ -124,12 +124,14 @@ function App() {
         <img src={user.url} alt="" width={"200px"} />
         <p>{user.name}</p>
         <p> {user.area} </p>
+        
       </div>
     </div>
   );
 }
 
 export default App;
+
 
 // function App() {
 //   const [email, setEmail] = useState("");
